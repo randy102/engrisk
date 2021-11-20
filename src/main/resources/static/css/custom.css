@@ -1,0 +1,17 @@
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+.form-wrap {
+    max-width: 800px;
+}
+
+.scroll-to-top i {
+    line-height: 46px;
+}
+
+.date-range {
+    width: 250px;
+}

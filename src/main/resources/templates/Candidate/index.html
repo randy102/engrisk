@@ -1,0 +1,23 @@
+<th:block th:insert="Layouts/main :: main(title='Candidate', pageName='candidate', content=~{:: .container-fluid})">
+    <div class="container-fluid">
+        <th:block th:insert="Layouts/table::table(title='Candidates', thead=~{:: #th}, tbody=~{:: #tb})">
+            <tr id="th">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Citizen ID</th>
+            </tr>
+
+            <th:tbody id="tb" th:each="candidate : ${candidates}">
+                <tr>
+                    <td th:text="${candidate.getId()}"></td>
+                    <td th:text="${candidate.getName()}"></td>
+                    <td th:text="${candidate.getEmail()}"></td>
+                    <td th:text="${candidate.getPhone()}"></td>
+                    <td th:text="${candidate.getCitizenId()}"></td>
+                </tr>
+            </th:tbody>
+        </th:block>
+    </div>
+</th:block>
