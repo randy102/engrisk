@@ -34,7 +34,9 @@ public class Exam {
     @Temporal(TemporalType.TIMESTAMP)
     private Date exam_date;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
     private ExamType type;
+
+    private String name;
     private Long price;
 }

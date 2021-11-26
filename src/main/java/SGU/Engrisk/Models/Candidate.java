@@ -36,6 +36,9 @@ public class Candidate {
     @Temporal(TemporalType.DATE)
     private Date citizenIdDate;
 
+    @Enumerated(EnumType.STRING)
+    private SexType sex;
+
     private String name;
     private String phone;
     private String email;
@@ -43,6 +46,4 @@ public class Candidate {
     private String citizenId;
     private String citizenIdPlace;
 
-    @Enumerated(EnumType.STRING)
-    private SexType sex;
 }

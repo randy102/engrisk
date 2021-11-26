@@ -4,6 +4,7 @@ import SGU.Engrisk.DTO.Candidate.CreateCandidateDTO;
 import SGU.Engrisk.DTO.Candidate.UpdateCandidateDTO;
 import SGU.Engrisk.Models.Candidate;
 import SGU.Engrisk.Services.CandidateService;
+import io.swagger.annotations.ApiModel;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
