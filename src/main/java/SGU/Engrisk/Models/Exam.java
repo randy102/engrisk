@@ -33,7 +33,7 @@ public class Exam {
     @ApiModelProperty(example = "2016-11-20 11:11")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date exam_date;
+    private Date examDate;
 
     @Enumerated(EnumType.STRING)
     private ExamType type;
@@ -42,7 +42,7 @@ public class Exam {
     private Long price;
 
     public boolean isClose(){
-        long differMiliSecond = this.exam_date.getTime() - (new Date()).getTime();
+        long differMiliSecond = this.examDate.getTime() - (new Date()).getTime();
         return TimeUnit.MILLISECONDS.toDays(differMiliSecond)<5;
     }
 }

@@ -1,0 +1,58 @@
+<th:block th:insert="Layouts/main :: main(title='Attendance', pageName='attendance', content=~{:: .container-fluid})">
+    <div class="container-fluid form-wrap">
+        <div class="alert alert-success" role="alert">
+            Register Successfully!
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Attendance Information
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <b>Candidate</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getCandidate().getName()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Exam</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getExam().getName()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Exam Date</b>
+                    </div>
+                    <div class="col-8"
+                         th:text="${#dates.format(dto.getExam().getExamDate(), 'dd/MM/yyyy HH:mm')}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Type</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getExam().getType()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Room</b>
+                    </div>
+                    <div class="col-8" th:if="${dto.getRoom()}" th:text="${dto.getRoom().getName()}"></div>
+                    <div class="col-8" th:unless="${dto.getRoom()}">Updating</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Attendance Code</b>
+                    </div>
+                    <div class="col-8" th:if="${dto.getCode()}" th:text="${dto.getCode()}"></div>
+                    <div class="col-8" th:unless="${dto.getCode()}">Updating</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

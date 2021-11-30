@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateAttendanceDTO extends CreateAttendanceDTO {
-    @ApiModelProperty(required = true)
-    private AttendanceID id;
+public class UpdateAttendanceResultDTO extends CreateAttendanceDTO {
+    private Float listening;
+    private Float speaking;
+    private Float reading;
+    private Float writing;
 }

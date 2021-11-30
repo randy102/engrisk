@@ -28,6 +28,8 @@ public class ResponseAttendanceDTO {
         res.setExam(ResponseExamRef.convert(attendance.getExam()));
         if (attendance.getRoom() != null)
             res.setRoom(ResponseRoomRef.convert(attendance.getRoom()));
+        if (attendance.getRoom() != null)
+            res.setRoom(ResponseRoomRef.convert(attendance.getRoom()));
         return res;
     }
 }

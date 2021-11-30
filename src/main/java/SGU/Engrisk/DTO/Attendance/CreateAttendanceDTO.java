@@ -14,9 +14,4 @@ public class CreateAttendanceDTO {
 
     @ApiModelProperty(required = true)
     private Long candidateId;
-
-    private Float listening;
-    private Float speaking;
-    private Float reading;
-    private Float writing;
 }

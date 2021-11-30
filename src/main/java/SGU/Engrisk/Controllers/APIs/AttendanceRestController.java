@@ -2,7 +2,7 @@ package SGU.Engrisk.Controllers.APIs;
 
 import SGU.Engrisk.DTO.Attendance.CreateAttendanceDTO;
 import SGU.Engrisk.DTO.Attendance.ResponseAttendanceDTO;
-import SGU.Engrisk.DTO.Attendance.UpdateAttendanceDTO;
+import SGU.Engrisk.DTO.Attendance.UpdateAttendanceResultDTO;
 import SGU.Engrisk.Models.AttendanceID;
 import SGU.Engrisk.Services.AttendanceService;
 import javassist.NotFoundException;
@@ -49,8 +49,8 @@ public class AttendanceRestController {
     }
 
     @PutMapping
-    public ResponseAttendanceDTO update(@RequestBody UpdateAttendanceDTO dto) throws Exception {
-        return attendanceService.update(dto);
+    public ResponseAttendanceDTO updateResult(@RequestBody UpdateAttendanceResultDTO dto) throws Exception {
+        return attendanceService.updateResult(dto);
     }
 
 

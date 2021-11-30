@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +42,12 @@ public class ExamService {
         List<ResponseExamDTO> resList = exams.stream().map(exam -> ResponseExamDTO.convert(exam)).collect(Collectors.toList());
 
         return resList;
+    }
+
+    public List<Exam> getRegistrable() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 5);
+        return examRepository.findAllByExamDateAfter(calendar.getTime());
     }
 
     public Exam get(long id) {
@@ -71,7 +78,7 @@ public class ExamService {
             throw new IllegalArgumentException("Price must be greater than 0");
 
         //Check date
-        if (dto.getExam_date() == null || dto.getExam_date().before(new Date()))
+        if (dto.getExamDate() == null || dto.getExamDate().before(new Date()))
             throw new IllegalArgumentException("Date cannot be null and must be after current date");
 
         //Check type
@@ -101,7 +108,7 @@ public class ExamService {
             throw new IllegalArgumentException("Price must be greater than 0");
 
         //Check date
-        if (dto.getExam_date() == null || dto.getExam_date().before(new Date()))
+        if (dto.getExamDate() == null || dto.getExamDate().before(new Date()))
             throw new IllegalArgumentException("Date cannot be null and must be after current date");
 
         //Check type
@@ -116,7 +123,7 @@ public class ExamService {
             throw new EntityExistsException(dto.getName() + " Existed");
         }
 
-        exam.setExam_date(dto.getExam_date());
+        exam.setExamDate(dto.getExamDate());
         exam.setType(dto.getType());
         exam.setName(dto.getName());
         exam.setPrice(dto.getPrice());

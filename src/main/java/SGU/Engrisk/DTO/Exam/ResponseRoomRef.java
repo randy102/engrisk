@@ -10,7 +10,6 @@ public class ResponseRoomRef {
 
     private String name;
     public static ResponseRoomRef convert(Room room){
-        ResponseRoomRef res = (new ModelMapper()).map(room, ResponseRoomRef.class);
-        return res;
+        return (new ModelMapper()).map(room, ResponseRoomRef.class);
     }
 }

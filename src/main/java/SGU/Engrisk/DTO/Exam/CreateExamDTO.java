@@ -14,9 +14,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class CreateExamDTO {
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, example = "2016-11-20 07:00")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private Date exam_date;
+    private Date examDate;
 
     @ApiModelProperty(required = true)
     private ExamType type;

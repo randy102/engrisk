@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityExistsException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,19 +61,18 @@ public class CandidateService {
         if (dto.getSex() == null)
             throw new IllegalArgumentException("Sex cannot be null");
 
+        dto.setName(FormatString.TitleCase(dto.getName()));
+
         //Check existed
-        dto.setName(FormatString.TitleCase(dto.getName()));
-        if (candidateRepository.existsByName(dto.getName()))
-            throw new EntityExistsException(dto.getName() + " existed");
+        if (candidateRepository.existsByCitizenId(dto.getCitizenId()))
+            throw new EntityExistsException(dto.getCitizenId() + " existed");
 
-        dto.setName(FormatString.TitleCase(dto.getName()));
 
-        dto.setName(FormatString.TitleCase(dto.getName()));
-
+        System.out.println("debug 1 " + dto);
         Candidate candidate = modelMapper.map(dto, Candidate.class);
 
         candidate = candidateRepository.save(candidate);
-
+        System.out.println("debug 2 " + candidate);
         return ResponseCandidateDTO.convert(candidate);
     }
 
@@ -118,5 +118,10 @@ public class CandidateService {
 
     public boolean existsById(Long candidateId) {
         return candidateRepository.existsById(candidateId);
+    }
+
+    public Long getIdByCitizen(String citizenId) {
+        Optional<Candidate> existed = candidateRepository.findByCitizenId(citizenId);
+        return existed.map(Candidate::getId).orElse(null);
     }
 }

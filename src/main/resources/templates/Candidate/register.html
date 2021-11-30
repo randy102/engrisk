@@ -1,0 +1,12 @@
+<th:block th:insert="Layouts/main :: main(title='Register', pageName='register', content=~{:: .container-fluid})">
+    <div class="container-fluid form-wrap">
+        <form method="post" th:action="@{/candidate/register-citizen}" th:object="${dto}">
+            <div class="form-group">
+                <label for="citizenId">Citizen Id</label>
+                <input class="form-control" id="citizenId" type="text" th:field="*{citizenId}" required autofocus>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Next</button>
+        </form>
+    </div>
+</th:block>

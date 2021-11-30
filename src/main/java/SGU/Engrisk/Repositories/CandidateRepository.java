@@ -11,5 +11,9 @@ import java.util.Optional;
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     boolean existsByName(String name);
 
+    boolean existsByCitizenId(String citizenId);
+
     Optional<Candidate> findByName(String name);
+
+    Optional<Candidate> findByCitizenId(String citizenId);
 }

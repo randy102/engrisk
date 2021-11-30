@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface AttendanceRepository extends JpaRepository<Attendance, AttendanceID> {
     Optional<Attendance> findByCode(String code);
 
+    Optional<Attendance> findById(AttendanceID id);
+
     @Query("SELECT a FROM Attendance a where a.exam.id=:examId and a.room.name=:roomName")
     Optional<Attendance> findAllByExamIdAndRoomName(@Param("examId") Long examId, @Param("roomName") String roomName);
 }

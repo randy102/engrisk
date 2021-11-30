@@ -2,7 +2,7 @@ package SGU.Engrisk.Services;
 
 import SGU.Engrisk.DTO.Attendance.CreateAttendanceDTO;
 import SGU.Engrisk.DTO.Attendance.ResponseAttendanceDTO;
-import SGU.Engrisk.DTO.Attendance.UpdateAttendanceDTO;
+import SGU.Engrisk.DTO.Attendance.UpdateAttendanceResultDTO;
 import SGU.Engrisk.Models.Attendance;
 import SGU.Engrisk.Models.AttendanceID;
 import SGU.Engrisk.Models.Exam;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,30 +87,23 @@ public class AttendanceService {
         return ResponseAttendanceDTO.convert(attendance);
     }
 
-    public ResponseAttendanceDTO update(UpdateAttendanceDTO dto) throws Exception {
-        //Check exam existed
-        if (!examService.existsById(dto.getExamId()))
-            throw new NotFoundException("Exam not found");
-
-        //Check candidate existed
-        if (!candidateService.existsById(dto.getCandidateId()))
-            throw new NotFoundException("Candidate not found");
-
+    public ResponseAttendanceDTO updateResult(UpdateAttendanceResultDTO dto) throws Exception {
         //Check attendance
         if (!attendanceRepository.existsById(new AttendanceID(dto.getCandidateId(), dto.getExamId())))
             throw new NotFoundException("Attendance not found");
 
-        Attendance attendance = attendanceRepository.getById(new AttendanceID(dto.getCandidateId(), dto.getExamId()));
-        if (attendance == null) {
+        Optional<Attendance> attendance = attendanceRepository.findById(new AttendanceID(dto.getCandidateId(), dto.getExamId()));
+        if (!attendance.isPresent()) {
             throw new NotFoundException("Not Existed");
         }
-        attendance.setListening(dto.getListening());
-        attendance.setSpeaking(dto.getSpeaking());
-        attendance.setWriting(dto.getWriting());
-        attendance.setReading(dto.getReading());
+        Attendance existed = attendance.get();
+        existed.setListening(dto.getListening());
+        existed.setSpeaking(dto.getSpeaking());
+        existed.setWriting(dto.getWriting());
+        existed.setReading(dto.getReading());
 
-        attendance = attendanceRepository.save(attendance);
-        return ResponseAttendanceDTO.convert(attendance);
+        existed = attendanceRepository.save(existed);
+        return ResponseAttendanceDTO.convert(existed);
     }
 
     public ResponseAttendanceDTO delete(AttendanceID id) throws NotFoundException {

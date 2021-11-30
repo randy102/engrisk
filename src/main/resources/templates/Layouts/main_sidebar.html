@@ -26,7 +26,6 @@
 <!--    </li>-->
 
 
-
     <!-- Nav Item - Customer -->
     <li class="nav-item" th:classappend="${page == 'candidate' ? 'active' : ''}">
         <a class="nav-link" href="/candidate">
@@ -35,6 +34,11 @@
 
     </li>
 
+    <li class="nav-item" th:classappend="${page == 'register' ? 'active' : ''}">
+        <a class="nav-link" href="/candidate/register">
+            <i class="fas fa-user-edit fa-fw"></i>
+            <span>Register</span></a>
+    </li>
 
 
     <!-- Divider -->

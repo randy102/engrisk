@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 @Embeddable
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class AttendanceID implements Serializable {
     @Column(name = "candidate_id")
@@ -19,5 +18,10 @@ public class AttendanceID implements Serializable {
 
     @Column(name = "exam_id")
     private Long examId;
+
+    public AttendanceID(Long candidateId, Long examId) {
+        this.candidateId = candidateId;
+        this.examId = examId;
+    }
 
 }

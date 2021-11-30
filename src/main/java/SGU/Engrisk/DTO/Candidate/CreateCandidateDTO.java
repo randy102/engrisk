@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Date;
 
 @Data
@@ -34,5 +36,6 @@ public class CreateCandidateDTO {
     private String citizenIdPlace;
 
     @ApiModelProperty(required = true)
+    @Enumerated(EnumType.STRING)
     private SexType sex;
 }

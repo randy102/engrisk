@@ -1,0 +1,27 @@
+<th:block th:insert="Layouts/main :: main(title='Register', pageName='register', content=~{:: .container-fluid})">
+    <div class="container-fluid form-wrap">
+        <div th:replace="Layouts/error_message :: error(${error})"></div>
+
+        <form method="post" th:action="@{/candidate/register-exam}" th:object="${dto}">
+            <div class="form-group">
+                <label for="citizenId">Citizen Id</label>
+                <input class="form-control" id="citizenId" type="text" th:field="*{citizenId}" readonly>
+            </div>
+
+            <input class="form-control" id="candidateId" type="text" th:field="*{candidateId}" hidden>
+
+            <div class="form-group">
+                <label for="examId">Exam</label>
+                <select class="form-control" th:field="*{examId}" id="examId" required>
+                    <option th:each="exam : ${exams}"
+                            th:value="${exam.getId()}"
+                            th:text="${exam.getType() + ' - ' + exam.getName()}">
+                    </option>
+
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</th:block>

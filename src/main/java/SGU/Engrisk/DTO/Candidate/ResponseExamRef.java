@@ -22,7 +22,7 @@ public class ResponseExamRef {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private Date exam_date;
+    private Date examDate;
 
     @Enumerated(EnumType.STRING)
     private ExamType type;
