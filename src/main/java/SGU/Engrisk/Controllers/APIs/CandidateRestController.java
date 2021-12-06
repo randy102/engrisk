@@ -1,10 +1,9 @@
-package SGU.Engrisk.Controllers;
+package SGU.Engrisk.Controllers.APIs;
 
 import SGU.Engrisk.DTO.Candidate.CreateCandidateDTO;
+import SGU.Engrisk.DTO.Candidate.ResponseCandidateDTO;
 import SGU.Engrisk.DTO.Candidate.UpdateCandidateDTO;
-import SGU.Engrisk.Models.Candidate;
 import SGU.Engrisk.Services.CandidateService;
-import io.swagger.annotations.ApiModel;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +17,22 @@ public class CandidateRestController {
     CandidateService candidateService;
 
     @GetMapping
-    public List<Candidate> index() {
+    public List<ResponseCandidateDTO> index() {
         return candidateService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseCandidateDTO get(@PathVariable Long id) throws NotFoundException {
+        return candidateService.getResponse(id);
+    }
+
     @PostMapping
-    public Candidate create(@RequestBody CreateCandidateDTO dto){
+    public ResponseCandidateDTO create(@RequestBody CreateCandidateDTO dto) throws Exception {
         return candidateService.create(dto);
     }
 
     @PutMapping
-    public Candidate update(@RequestBody UpdateCandidateDTO dto) throws NotFoundException {
+    public ResponseCandidateDTO update(@RequestBody UpdateCandidateDTO dto) throws Exception {
         return candidateService.update(dto);
     }
 

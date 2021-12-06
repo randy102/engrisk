@@ -1,6 +1,7 @@
 package SGU.Engrisk.DTO.Candidate;
 
 import SGU.Engrisk.lib.enums.SexType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,10 +16,12 @@ import java.util.Date;
 public class CreateCandidateDTO {
     @ApiModelProperty(example = "2016-11-20")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @ApiModelProperty(example = "2016-11-20")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date citizenIdDate;
 
     private String citizenId;
