@@ -26,6 +26,11 @@ public class ExamRestController {
         return examService.getResponse(id);
     }
 
+    @GetMapping("/{id}/rearrange")
+    public ResponseExamDTO rearrange(@PathVariable Long id) throws NotFoundException {
+        return examService.rearrange(id);
+    }
+
     @PostMapping
     public ResponseExamDTO create(@RequestBody CreateExamDTO dto) throws Exception {
         return examService.create(dto);

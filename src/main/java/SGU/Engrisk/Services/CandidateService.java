@@ -5,12 +5,14 @@ import SGU.Engrisk.DTO.Candidate.ResponseCandidateDTO;
 import SGU.Engrisk.DTO.Candidate.UpdateCandidateDTO;
 import SGU.Engrisk.Models.Candidate;
 import SGU.Engrisk.Repositories.CandidateRepository;
+import SGU.Engrisk.Utils.FormatString;
 import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,11 +26,7 @@ public class CandidateService {
 
     public List<ResponseCandidateDTO> getAll() {
         List<Candidate> candidates = candidateRepository.findAll();
-        List<ResponseCandidateDTO> resList = candidates.stream().map(candidate -> {
-            ResponseCandidateDTO res = modelMapper.map(candidate, ResponseCandidateDTO.class);
-//            res.setAttendanceIds(candidate);
-            return res;
-        }).collect(Collectors.toList());
+        List<ResponseCandidateDTO> resList = candidates.stream().map(candidate -> modelMapper.map(candidate, ResponseCandidateDTO.class)).collect(Collectors.toList());
         return resList;
     }
 
@@ -50,9 +48,30 @@ public class CandidateService {
     }
 
     public ResponseCandidateDTO create(CreateCandidateDTO dto) throws Exception {
-        if (candidateRepository.existsByName(dto.getName())) {
-            throw new EntityExistsException(dto.getName() + " Existed");
-        }
+        //Check name
+        if (dto.getName() == null || dto.getName().isEmpty())
+            throw new IllegalArgumentException("Name cannot be null or empty");
+
+        //Check BirthDate
+        if (dto.getBirthDate() == null || dto.getBirthDate().after(new Date()))
+            throw new IllegalArgumentException("Birth Date cannot be null and must be after current date");
+
+        //Check CitizenIdDate
+        if (dto.getCitizenIdDate() == null || dto.getCitizenIdDate().after(new Date()))
+            throw new IllegalArgumentException("Citizen Id Date cannot be null and must be after current date");
+
+        //Check Sex
+        if (dto.getSex() == null)
+            throw new IllegalArgumentException("Sex cannot be null");
+
+        //Check existed
+        dto.setName(FormatString.TitleCase(dto.getName()));
+        if (candidateRepository.existsByName(dto.getName()))
+            throw new EntityExistsException(dto.getName() + " existed");
+
+        dto.setName(FormatString.TitleCase(dto.getName()));
+
+        dto.setName(FormatString.TitleCase(dto.getName()));
 
         Candidate candidate = modelMapper.map(dto, Candidate.class);
 
@@ -62,18 +81,40 @@ public class CandidateService {
     }
 
     public ResponseCandidateDTO update(UpdateCandidateDTO dto) throws Exception {
-        if (!candidateRepository.existsById(dto.getId())) {
+        //Check name
+        if (dto.getName() == null || dto.getName().isEmpty())
+            throw new IllegalArgumentException("Name cannot be null or empty");
+
+        //Check BirthDate
+        if (dto.getBirthDate() == null || dto.getBirthDate().after(new Date()))
+            throw new IllegalArgumentException("Birth Date cannot be null and must be after current date");
+
+        //Check CitizenIdDate
+        if (dto.getCitizenIdDate() == null || dto.getCitizenIdDate().after(new Date()))
+            throw new IllegalArgumentException("Citizen Id Date cannot be null and must be after current date");
+
+        //Check Sex
+        if (dto.getSex() == null)
+            throw new IllegalArgumentException("Sex cannot be null");
+
+        dto.setName(FormatString.TitleCase(dto.getName()));
+
+        Candidate candidate = candidateRepository.getById(dto.getId());
+        if (candidate == null) {
             throw new NotFoundException("Not Existed");
         }
 
-        if (candidateRepository.existsByName(dto.getName()) && get(dto.getName()).getId() != dto.getId()) {
-            throw new EntityExistsException(dto.getName() + " Existed");
-        }
-
-        Candidate candidate = modelMapper.map(dto, Candidate.class);
+        candidate.setBirthDate(dto.getBirthDate());
+        candidate.setCitizenIdDate(dto.getCitizenIdDate());
+        candidate.setCitizenId(dto.getCitizenId());
+        candidate.setName(dto.getName());
+        candidate.setPhone(dto.getPhone());
+        candidate.setEmail(dto.getEmail());
+        candidate.setBirthPlace(dto.getBirthPlace());
+        candidate.setCitizenIdPlace(dto.getCitizenIdPlace());
+        candidate.setSex(dto.getSex());
 
         candidate = candidateRepository.save(candidate);
-
         return ResponseCandidateDTO.convert(candidate);
     }
 
@@ -81,5 +122,9 @@ public class CandidateService {
         if (!candidateRepository.existsById(id))
             throw new NotFoundException("Not existed id: " + id);
         candidateRepository.deleteById(id);
+    }
+
+    public boolean existsById(Long candidateId) {
+        return candidateRepository.existsById(candidateId);
     }
 }

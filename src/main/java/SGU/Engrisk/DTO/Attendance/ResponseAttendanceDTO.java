@@ -1,36 +1,32 @@
 package SGU.Engrisk.DTO.Attendance;
 
-import SGU.Engrisk.DTO.Candidate.ResponseCandidateDTO;
-import SGU.Engrisk.DTO.Exam.ResponseExamDTO;
+import SGU.Engrisk.DTO.Candidate.ResponseExamRef;
+import SGU.Engrisk.DTO.Exam.ResponseRoomRef;
 import SGU.Engrisk.Models.Attendance;
 import SGU.Engrisk.Models.AttendanceID;
-import SGU.Engrisk.Models.Candidate;
-import SGU.Engrisk.Models.Exam;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 
 @Data
-public class ResponseAttendanceDTO /*extends UpdateAttendanceDTO */{
-//    private String code;
-//    private Long roomId;
+public class ResponseAttendanceDTO {
 
     private AttendanceID id;
 
-    private ResponseExamDTO exam;
-    private ResponseCandidateDTO candidate;
+    private ResponseExamRef exam;
+    private ResponseCandidateRef candidate;
+    private ResponseRoomRef room;
 
     private Float listening;
     private Float speaking;
     private Float reading;
     private Float writing;
 
-    public static ResponseAttendanceDTO convert(Attendance attendance){
+    public static ResponseAttendanceDTO convert(Attendance attendance) {
         ResponseAttendanceDTO res = (new ModelMapper()).map(attendance, ResponseAttendanceDTO.class);
-        res.setExam(ResponseExamDTO.convert(attendance.getExam()));
-        res.setCandidate(ResponseCandidateDTO.convert(attendance.getCandidate()));
-//        res.setExamId(attendance.getExam().getId());
-//        res.setCandidateId(attendance.getCandidate().getId());
-//        res.setRoomId(attendance.getRoom().getId());
+        res.setCandidate(ResponseCandidateRef.convert(attendance.getCandidate()));
+        res.setExam(ResponseExamRef.convert(attendance.getExam()));
+        if (attendance.getRoom() != null)
+            res.setRoom(ResponseRoomRef.convert(attendance.getRoom()));
         return res;
     }
 }

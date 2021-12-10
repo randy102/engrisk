@@ -5,15 +5,12 @@ import SGU.Engrisk.DTO.Attendance.ResponseAttendanceDTO;
 import SGU.Engrisk.DTO.Attendance.UpdateAttendanceDTO;
 import SGU.Engrisk.Models.Attendance;
 import SGU.Engrisk.Models.AttendanceID;
-import SGU.Engrisk.Models.Exam;
-import SGU.Engrisk.Models.Room;
 import SGU.Engrisk.Repositories.AttendanceRepository;
 import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,8 +32,8 @@ public class AttendanceService {
     ModelMapper modelMapper;
 
     public List<ResponseAttendanceDTO> getAll() {
-        List<Attendance> Attendances = attendanceRepository.findAll();
-        List<ResponseAttendanceDTO> resList = Attendances.stream().map(attendance -> ResponseAttendanceDTO.convert(attendance)).collect(Collectors.toList());
+        List<Attendance> attendances = attendanceRepository.findAll();
+        List<ResponseAttendanceDTO> resList = attendances.stream().map(attendance -> ResponseAttendanceDTO.convert(attendance)).collect(Collectors.toList());
         return resList;
     }
 
@@ -65,6 +62,19 @@ public class AttendanceService {
     }
 
     public ResponseAttendanceDTO create(CreateAttendanceDTO dto) throws Exception {
+        System.out.println("exam id "+dto.getExamId());
+        System.out.println("candidate id "+dto.getCandidateId());
+        //Check exam existed
+        if(!examService.existsById(dto.getExamId()))
+            throw new NotFoundException("Exam not found");
+
+        //Check candidate existed
+        if(!candidateService.existsById(dto.getCandidateId()))
+            throw new NotFoundException("Candidate not found");
+
+        //Check attendance existed
+        if(attendanceRepository.existsById(new AttendanceID(dto.getCandidateId(),dto.getExamId())))
+            throw new NotFoundException("Attendance existed");
 
         Attendance attendance = new Attendance(examService.get(dto.getExamId()), candidateService.get(dto.getCandidateId()));
         attendance = attendanceRepository.save(attendance);
@@ -72,11 +82,22 @@ public class AttendanceService {
     }
 
     public ResponseAttendanceDTO update(UpdateAttendanceDTO dto) throws Exception {
+        //Check exam existed
+        if(!examService.existsById(dto.getExamId()))
+            throw new NotFoundException("Exam not found");
+
+        //Check candidate existed
+        if(!candidateService.existsById(dto.getCandidateId()))
+            throw new NotFoundException("Candidate not found");
+
+        //Check attendance
+        if(!attendanceRepository.existsById(new AttendanceID(dto.getCandidateId(),dto.getExamId())))
+            throw new NotFoundException("Attendance not found");
+
         Attendance attendance = attendanceRepository.getById(new AttendanceID(dto.getCandidateId(), dto.getExamId()));
         if (attendance == null) {
             throw new NotFoundException("Not Existed");
         }
-
         attendance.setListening(dto.getListening());
         attendance.setSpeaking(dto.getSpeaking());
         attendance.setWriting(dto.getWriting());
@@ -86,7 +107,6 @@ public class AttendanceService {
         return ResponseAttendanceDTO.convert(attendance);
     }
 
-    //
     public ResponseAttendanceDTO delete(AttendanceID id) throws NotFoundException {
         Attendance attendance = attendanceRepository.getById(new AttendanceID(id.getCandidateId(), id.getExamId()));
         if (attendance == null)

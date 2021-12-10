@@ -1,13 +1,11 @@
 package SGU.Engrisk.Models;
 
-import SGU.Engrisk.lib.enums.SexType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Data
@@ -26,6 +24,9 @@ public class Attendance implements Serializable {
     @MapsId("candidateId")
     @JoinColumn(name = "candidate_id")
     private Candidate candidate;
+
+    @ManyToOne
+    private Room room;
 
     private String code;
     private Float listening;

@@ -25,7 +25,7 @@ public class Exam {
     @ToString.Exclude
     private List<Room> rooms;
 
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL/*, orphanRemoval = true*/)
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL/*, orphanRemoval = true*/)
     @ToString.Exclude
     private List<Attendance> attendances;
 
