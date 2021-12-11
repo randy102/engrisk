@@ -20,6 +20,7 @@ public class ResponseAttendanceDTO {
     private Float speaking;
     private Float reading;
     private Float writing;
+    private String code;
 
     public static ResponseAttendanceDTO convert(Attendance attendance) {
         ResponseAttendanceDTO res = (new ModelMapper()).map(attendance, ResponseAttendanceDTO.class);

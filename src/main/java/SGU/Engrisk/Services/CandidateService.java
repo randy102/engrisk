@@ -56,10 +56,6 @@ public class CandidateService {
         if (dto.getBirthDate() == null || dto.getBirthDate().after(new Date()))
             throw new IllegalArgumentException("Birth Date cannot be null and must be after current date");
 
-        //Check CitizenIdDate
-        if (dto.getCitizenIdDate() == null || dto.getCitizenIdDate().after(new Date()))
-            throw new IllegalArgumentException("Citizen Id Date cannot be null and must be after current date");
-
         //Check Sex
         if (dto.getSex() == null)
             throw new IllegalArgumentException("Sex cannot be null");
@@ -87,11 +83,7 @@ public class CandidateService {
 
         //Check BirthDate
         if (dto.getBirthDate() == null || dto.getBirthDate().after(new Date()))
-            throw new IllegalArgumentException("Birth Date cannot be null and must be after current date");
-
-        //Check CitizenIdDate
-        if (dto.getCitizenIdDate() == null || dto.getCitizenIdDate().after(new Date()))
-            throw new IllegalArgumentException("Citizen Id Date cannot be null and must be after current date");
+            throw new IllegalArgumentException("Birth Date cannot be null and must be before current date");
 
         //Check Sex
         if (dto.getSex() == null)

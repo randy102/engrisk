@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @Data
@@ -39,4 +40,9 @@ public class Exam {
 
     private String name;
     private Long price;
+
+    public boolean isClose(){
+        long differMiliSecond = this.exam_date.getTime() - (new Date()).getTime();
+        return TimeUnit.MILLISECONDS.toDays(differMiliSecond)<5;
+    }
 }

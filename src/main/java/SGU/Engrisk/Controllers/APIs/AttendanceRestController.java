@@ -18,26 +18,19 @@ public class AttendanceRestController {
     @Autowired
     AttendanceService attendanceService;
 
+
     @GetMapping
-    public List<ResponseAttendanceDTO> index() {
+    public List<ResponseAttendanceDTO> filter(@RequestParam Optional<Long> examId,
+                                              @RequestParam Optional<String> roomCode,
+                                              @RequestParam Optional<String> name) throws NotFoundException {
+        if (examId.isPresent() && roomCode.isPresent())
+            return attendanceService.getResponseByExamIdAndRoomName(examId.get(), roomCode.get());
+        if (examId.isPresent())
+            return attendanceService.getResponseByExamId(examId.get());
+        if (name.isPresent())
+            return attendanceService.getResponseByNameLike(name.get());
         return attendanceService.getAll();
     }
-
-//    @GetMapping
-//    public List<ResponseAttendanceDTO> filter(@RequestParam Optional<Long> examId,
-//                                              @RequestParam Optional<Long> roomId,
-//                                              @RequestParam Optional<String> roomCode,
-//                                              @RequestParam Optional<String> name) throws NotFoundException {
-//        if (examId.isPresent())
-//            return attendanceService.getResponseByExamId(examId.get());
-//        if (roomId.isPresent())
-//            return attendanceService.getResponseByRoomId(roomId.get());
-//        if (roomCode.isPresent())
-//            return attendanceService.getResponseByRoomCode(roomCode.get());
-//        if (name.isPresent())
-//            return attendanceService.getResponseByNameLike(name.get());
-//        return attendanceService.getAll();
-//    }
 
     @GetMapping("/id")
     public ResponseAttendanceDTO get(@RequestParam Long candidateId, @RequestParam Long examId) throws NotFoundException {

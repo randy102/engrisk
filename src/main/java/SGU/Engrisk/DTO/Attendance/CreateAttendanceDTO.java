@@ -1,6 +1,6 @@
 package SGU.Engrisk.DTO.Attendance;
 
-import SGU.Engrisk.Models.Exam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateAttendanceDTO {
+    @ApiModelProperty(required = true)
     private Long examId;
 
+    @ApiModelProperty(required = true)
     private Long candidateId;
-
 
     private Float listening;
     private Float speaking;

@@ -18,9 +18,7 @@ public class RoomRestController {
     RoomService roomService;
 
     @GetMapping
-    public List<ResponseRoomDTO> index(/*@RequestParam Optional<String> examType*/) {
-//        if(examType.isPresent())
-//            return roomService.getResponseAllRoomByExamType(examType.get());
+    public List<ResponseRoomDTO> index() {
         return roomService.getAll();
     }
 
@@ -28,19 +26,4 @@ public class RoomRestController {
     public ResponseRoomDTO get(@PathVariable Long id) throws NotFoundException {
         return roomService.getResponse(id);
     }
-
-//    @PostMapping
-//    public ResponseRoomDTO create(@RequestBody CreateRoomDTO dto)  throws EntityExistsException, NotFoundException {
-//        return roomService.create(dto);
-//    }
-//
-//    @PutMapping
-//    public ResponseRoomDTO update(@RequestBody UpdateRoomDTO dto) throws NotFoundException {
-//        return roomService.update(dto);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public void delete(@PathVariable Long id) throws NotFoundException {
-//        roomService.delete(id);
-//    }
 }

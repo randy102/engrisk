@@ -26,10 +26,13 @@ public class CreateCandidateDTO {
 
     private String citizenId;
 
+    @ApiModelProperty(required = true)
     private String name;
     private String phone;
     private String email;
     private String birthPlace;
     private String citizenIdPlace;
+
+    @ApiModelProperty(required = true)
     private SexType sex;
 }

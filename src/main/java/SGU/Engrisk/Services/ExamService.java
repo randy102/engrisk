@@ -125,30 +125,34 @@ public class ExamService {
         return ResponseExamDTO.convert(exam);
     }
 
-    public ResponseExamDTO rearrange(Long id) throws NotFoundException {
+    public ResponseExamDTO rearrange(Long id) throws Exception {
         Exam exam = examRepository.getById(id);
         if (exam == null) {
             throw new NotFoundException("Not Existed");
         }
-        double numberOfAttendances = (exam.getAttendances() == null ? 0 : exam.getAttendances().size()) + 1;
+        double numberOfAttendances = (exam.getAttendances() == null ? 0 : exam.getAttendances().size());
+        if(numberOfAttendances==0)
+            throw new Exception("No attendance");
         int roomNo = (int) Math.ceil(numberOfAttendances / Room.CAPACITY);
         List<Room> rooms = exam.getRooms() == null ? (new ArrayList<Room>()) : exam.getRooms();
-
         for (int i = rooms.size(); i < roomNo; i++) {
-            rooms.add(new Room(exam, exam.getType().name() + String.format("P%02d", i)));
+            rooms.add(new Room(exam, exam.getType().name() + String.format("P%02d", i+1)));
         }
         exam.setRooms(rooms);
         exam = examRepository.save(exam);
 
         //Set room for Attendance
+        int code=1;
         for (int i = 0; i < roomNo; i++) {
             Room currentRoom=rooms.get(i);
             int firstAttendanceIndex=i*Room.CAPACITY;
-            int lastAttendanceIndex= (int) Math.min(firstAttendanceIndex+35,numberOfAttendances-1);
+            int lastAttendanceIndex= (int) Math.min(firstAttendanceIndex+35,numberOfAttendances);
             for(int j =firstAttendanceIndex;j<lastAttendanceIndex;j++){
                 Attendance currentAttendance=exam.getAttendances().get(j);
+                currentAttendance.setCode(exam.getType().name() + String.format("%03d", code));
                 currentAttendance.setRoom(currentRoom);
                 attendanceRepository.save(currentAttendance);
+                code++;
             }
         }
 

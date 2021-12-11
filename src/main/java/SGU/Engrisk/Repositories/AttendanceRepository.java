@@ -2,8 +2,9 @@ package SGU.Engrisk.Repositories;
 
 import SGU.Engrisk.Models.Attendance;
 import SGU.Engrisk.Models.AttendanceID;
-import SGU.Engrisk.Models.Exam;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -12,4 +13,6 @@ import java.util.Optional;
 public interface AttendanceRepository extends JpaRepository<Attendance, AttendanceID> {
     Optional<Attendance> findByCode(String code);
 
+    @Query("SELECT a FROM Attendance a where a.exam.id=:examId and a.room.name=:roomName")
+    Optional<Attendance> findAllByExamIdAndRoomName(@Param("examId") Long examId, @Param("roomName") String roomName);
 }
