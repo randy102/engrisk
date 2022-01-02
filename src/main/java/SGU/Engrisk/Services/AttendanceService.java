@@ -44,6 +44,13 @@ public class AttendanceService {
         return attendances.stream().map(ResponseAttendanceDTO::convert).collect(Collectors.toList());
     }
 
+    public List<ResponseAttendanceDTO> getByRoomId(Long roomId) {
+        List<Attendance> attendances = attendanceRepository.findAllByRoomId(roomId);
+        System.out.println(roomId);
+        System.out.println(attendances);
+        return attendances.stream().map(ResponseAttendanceDTO::convert).collect(Collectors.toList());
+    }
+
     public ResponseAttendanceDTO getByCodeAndExam(String code, String exam) {
         Optional<Attendance> attendance = attendanceRepository.findByCodeAndExam(code, exam);
         return attendance.map(ResponseAttendanceDTO::convert).orElseGet(ResponseAttendanceDTO::new);

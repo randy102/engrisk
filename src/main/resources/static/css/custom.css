@@ -40,3 +40,7 @@
     font-weight: bold;
     justify-content: center;
 }
+
+.container-fluid {
+    margin-bottom: 100px;
+}

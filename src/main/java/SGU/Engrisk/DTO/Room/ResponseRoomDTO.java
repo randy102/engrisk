@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 
 @Data
 public class ResponseRoomDTO {
+    private Long id;
     private String name;
     private ResponseExamRef exam;
     public static ResponseRoomDTO convert(Room room) {

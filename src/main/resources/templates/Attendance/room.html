@@ -1,0 +1,61 @@
+<th:block
+        th:insert="Layouts/main :: main(title='Attendance List', pageName='attendance_room', content=~{:: .container-fluid})">
+    <div class="container-fluid">
+        <div class="form-wrap ml-auto mr-auto mb-5">
+            <form method="get" th:action="@{/attendance/room}" th:object="${search}">
+                <div class="form-group">
+                    <label for="exam">Exam</label>
+                    <select class="form-control" id="exam">
+                        <option disabled selected value=""></option>
+                        <option th:each="e : ${exams}"
+                                th:value="${e.getId()}"
+                                th:text="${e.getName()}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="roomId">Room</label>
+                    <select class="form-control" th:field="*{roomId}" id="roomId">
+                        <option th:value="0"></option>
+                        <option th:each="r : ${rooms}"
+                                th:attr="data-exam=${r.getExam().getId()}"
+                                th:value="${r.getId()}"
+                                th:text="${r.getExam().getName() + '-' + r.getName()}">
+                        </option>
+
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <th:block th:insert="Layouts/table::table(title='Candidates', thead=~{:: #th}, tbody=~{:: #tb})">
+            <tr id="th">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Citizen ID</th>
+                <th>Info</th>
+                <th>Certificate</th>
+            </tr>
+
+            <th:tbody id="tb" th:each="attendance : ${dto}">
+                <tr>
+                    <td th:text="${attendance.getCandidate().getName()}"></td>
+                    <td th:text="${attendance.getCandidate().getEmail()}"></td>
+                    <td th:text="${attendance.getCandidate().getPhone()}"></td>
+                    <td th:text="${attendance.getCandidate().getCitizenId()}"></td>
+                    <td>
+                        <a class="btn btn-primary"
+                           th:href="@{/candidate/attendance/{candidate}/{exam}(candidate=${attendance.getCandidate().getId()},exam=${attendance.getExam().getId()})}">View</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary"
+                           th:href="@{/attendance/certificate(code=${attendance.getCode()},exam=${attendance.getExam().getName()})}">View</a>
+                    </td>
+                </tr>
+            </th:tbody>
+        </th:block>
+    </div>
+</th:block>

@@ -16,6 +16,8 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Attendan
 
     Optional<Attendance> findById(AttendanceID id);
 
+    List<Attendance> findAllByRoomId(Long roomId);
+
     @Query("SELECT a FROM Attendance a where a.candidate.name=:name and a.candidate.phone=:phone")
     List<Attendance> findByCandidateNameAndPhone(@Param("name") String name, @Param("phone") String phone);
 

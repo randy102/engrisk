@@ -5,6 +5,7 @@ import SGU.Engrisk.DTO.Attendance.RegisterAttendanceDTO;
 import SGU.Engrisk.DTO.Attendance.ResponseAttendanceDTO;
 import SGU.Engrisk.DTO.Candidate.CreateCandidateDTO;
 import SGU.Engrisk.DTO.Search.SearchAttendanceDTO;
+import SGU.Engrisk.DTO.Search.SearchAttendanceRoomDTO;
 import SGU.Engrisk.DTO.Search.SearchCertificateDTO;
 import SGU.Engrisk.Models.Attendance;
 import SGU.Engrisk.Models.AttendanceID;
@@ -12,6 +13,7 @@ import SGU.Engrisk.Models.Candidate;
 import SGU.Engrisk.Services.AttendanceService;
 import SGU.Engrisk.Services.CandidateService;
 import SGU.Engrisk.Services.ExamService;
+import SGU.Engrisk.Services.RoomService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,9 @@ public class AttendanceController {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    RoomService roomService;
+
     @GetMapping("/search")
     public String search(Model model, @RequestParam Optional<String> candidateName, @RequestParam Optional<String> candidatePhone) {
         if (candidateName.isPresent() && candidatePhone.isPresent()) {
@@ -56,5 +61,14 @@ public class AttendanceController {
         model.addAttribute("search", new SearchCertificateDTO());
         model.addAttribute("exams", examService.getAll());
         return "Attendance/certificate";
+    }
+
+    @GetMapping("/room")
+    public String room(Model model, @RequestParam Optional<Long> roomId) {
+        roomId.ifPresent(id -> model.addAttribute("dto", attendanceService.getByRoomId(id)));
+        model.addAttribute("search", new SearchAttendanceRoomDTO());
+        model.addAttribute("exams", examService.getAll());
+        model.addAttribute("rooms", roomService.getAll());
+        return "Attendance/room";
     }
 }
