@@ -20,9 +20,9 @@ public class AttendanceRestController {
 
 
     @GetMapping
-    public List<ResponseAttendanceDTO> filter(@RequestParam Optional<Long> examId,
-                                              @RequestParam Optional<String> roomCode,
-                                              @RequestParam Optional<String> name) throws NotFoundException {
+    public List<ResponseAttendanceDTO> filter(@RequestParam (required = false) Optional<Long> examId,
+                                              @RequestParam (required = false) Optional<String> roomCode,
+                                              @RequestParam (required = false) Optional<String> name) throws NotFoundException {
         if (examId.isPresent() && roomCode.isPresent())
             return attendanceService.getResponseByExamIdAndRoomName(examId.get(), roomCode.get());
         if (examId.isPresent())
