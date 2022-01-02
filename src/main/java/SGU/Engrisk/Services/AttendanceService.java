@@ -36,8 +36,12 @@ public class AttendanceService {
 
     public List<ResponseAttendanceDTO> getAll() {
         List<Attendance> attendances = attendanceRepository.findAll();
-        List<ResponseAttendanceDTO> resList = attendances.stream().map(attendance -> ResponseAttendanceDTO.convert(attendance)).collect(Collectors.toList());
-        return resList;
+        return attendances.stream().map(ResponseAttendanceDTO::convert).collect(Collectors.toList());
+    }
+
+    public List<ResponseAttendanceDTO> getByCandidateNameAndPhone(String name, String phone) {
+        List<Attendance> attendances = attendanceRepository.findByCandidateNameAndPhone(name, phone);
+        return attendances.stream().map(ResponseAttendanceDTO::convert).collect(Collectors.toList());
     }
 
     public Attendance get(AttendanceID id) {

@@ -1,0 +1,56 @@
+<th:block th:insert="Layouts/main :: main(title='Search', pageName='attendance', content=~{:: .container-fluid})">
+    <div class="container-fluid">
+        <div class="form-wrap ml-auto mr-auto mb-5">
+            <form method="get" th:action="@{/attendance/search}" th:object="${search}">
+                <div class="form-group">
+                    <label for="candidateName">Candidate Name</label>
+                    <input class="form-control" id="candidateName" type="text" th:field="*{candidateName}" required
+                           autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="candidatePhone">Candidate Phone</label>
+                    <input class="form-control" id="candidatePhone" type="text" th:field="*{candidatePhone}" required
+                           autofocus>
+                </div>
+                <button type="submit" class="d-none">Search</button>
+            </form>
+        </div>
+
+        <th:block th:insert="Layouts/table::table(title='Attendance', thead=~{:: #th}, tbody=~{:: #tb})">
+            <tr id="th">
+                <th>Candidate</th>
+                <th>Exam</th>
+                <th>Type</th>
+                <th>Code</th>
+                <th>Room</th>
+                <th>Exam Date</th>
+                <th><i class="fas fa-headphones fa-fw"/></th>
+                <th><i class="fas fa-microphone fa-fw"/></th>
+                <th><i class="fas fa-glasses fa-fw"/></th>
+                <th><i class="fas fa-pen fa-fw"/></th>
+            </tr>
+
+            <th:tbody id="tb" th:each="attendance : ${dto}">
+                <tr>
+
+                    <td th:text="${attendance.getCandidate().getName()}"></td>
+                    <td th:text="${attendance.getExam().getName()}"></td>
+                    <td th:text="${attendance.getExam().getType()}"></td>
+
+                    <td th:if="${attendance.getCode()}" th:text="${attendance.getCode()}"></td>
+                    <td th:unless="${attendance.getCode()}">Updating</td>
+
+                    <td th:if="${attendance.getRoom()}" th:text="${attendance.getRoom().getName()}"></td>
+                    <td th:unless="${attendance.getRoom()}">Updating</td>
+
+                    <td th:text="${#dates.format(attendance.getExam().getExamDate(), 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${attendance.getListening()}"></td>
+                    <td th:text="${attendance.getSpeaking()}"></td>
+                    <td th:text="${attendance.getReading()}"></td>
+                    <td th:text="${attendance.getWriting()}"></td>
+                </tr>
+            </th:tbody>
+        </th:block>
+    </div>
+</th:block>

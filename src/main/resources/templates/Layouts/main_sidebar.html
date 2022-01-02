@@ -40,6 +40,12 @@
             <span>Register</span></a>
     </li>
 
+    <li class="nav-item" th:classappend="${page == 'attendance' ? 'active' : ''}">
+        <a class="nav-link" href="/attendance/search">
+            <i class="fas fa-search fa-fw"></i>
+            <span>Search Attendance</span></a>
+    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
