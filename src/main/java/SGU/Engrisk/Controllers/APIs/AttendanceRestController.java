@@ -19,16 +19,21 @@ public class AttendanceRestController {
     AttendanceService attendanceService;
 
 
+//    @GetMapping
+//    public List<ResponseAttendanceDTO> filter(@RequestParam (required = false) Optional<Long> examId,
+//                                              @RequestParam (required = false) Optional<String> roomCode,
+//                                              @RequestParam (required = false) Optional<String> name) throws NotFoundException {
+//        if (examId.isPresent() && roomCode.isPresent())
+//            return attendanceService.getResponseByExamIdAndRoomName(examId.get(), roomCode.get());
+//        if (examId.isPresent())
+//            return attendanceService.getResponseByExamId(examId.get());
+//        if (name.isPresent())
+//            return attendanceService.getResponseByNameLike(name.get());
+//        return attendanceService.getAll();
+//    }
+
     @GetMapping
-    public List<ResponseAttendanceDTO> filter(@RequestParam (required = false) Optional<Long> examId,
-                                              @RequestParam (required = false) Optional<String> roomCode,
-                                              @RequestParam (required = false) Optional<String> name) throws NotFoundException {
-        if (examId.isPresent() && roomCode.isPresent())
-            return attendanceService.getResponseByExamIdAndRoomName(examId.get(), roomCode.get());
-        if (examId.isPresent())
-            return attendanceService.getResponseByExamId(examId.get());
-        if (name.isPresent())
-            return attendanceService.getResponseByNameLike(name.get());
+    public List<ResponseAttendanceDTO> getAll() {
         return attendanceService.getAll();
     }
 
