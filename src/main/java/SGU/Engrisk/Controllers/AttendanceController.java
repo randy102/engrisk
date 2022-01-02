@@ -5,6 +5,7 @@ import SGU.Engrisk.DTO.Attendance.RegisterAttendanceDTO;
 import SGU.Engrisk.DTO.Attendance.ResponseAttendanceDTO;
 import SGU.Engrisk.DTO.Candidate.CreateCandidateDTO;
 import SGU.Engrisk.DTO.Search.SearchAttendanceDTO;
+import SGU.Engrisk.DTO.Search.SearchCertificateDTO;
 import SGU.Engrisk.Models.Attendance;
 import SGU.Engrisk.Models.AttendanceID;
 import SGU.Engrisk.Models.Candidate;
@@ -36,11 +37,24 @@ public class AttendanceController {
     ModelMapper modelMapper;
 
     @GetMapping("/search")
-    public String index(Model model, @RequestParam Optional<String> candidateName, @RequestParam Optional<String> candidatePhone) {
+    public String search(Model model, @RequestParam Optional<String> candidateName, @RequestParam Optional<String> candidatePhone) {
         if (candidateName.isPresent() && candidatePhone.isPresent()) {
             model.addAttribute("dto", attendanceService.getByCandidateNameAndPhone(candidateName.get(), candidatePhone.get()));
         }
         model.addAttribute("search", new SearchAttendanceDTO());
         return "Attendance/index";
+    }
+
+    @GetMapping("/certificate")
+    public String certificate(Model model, @RequestParam Optional<String> code, @RequestParam Optional<String> exam) {
+
+        if (code.isPresent() && exam.isPresent()) {
+            model.addAttribute("dto", attendanceService.getByCodeAndExam(code.get(), exam.get()));
+        } else {
+            model.addAttribute("dto", null);
+        }
+        model.addAttribute("search", new SearchCertificateDTO());
+        model.addAttribute("exams", examService.getAll());
+        return "Attendance/certificate";
     }
 }

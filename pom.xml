@@ -10,10 +10,10 @@
 		<!-- lookup parent from repository -->
 	</parent>
 	<groupId>SGU</groupId>
-	<artifactId>Tourio</artifactId>
+	<artifactId>Engrisk</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Tourio</name>
-	<description>Tourism management project</description>
+	<description>Engrisk management project</description>
 	<properties>
 		<java.version>11</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>

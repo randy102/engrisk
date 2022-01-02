@@ -15,3 +15,28 @@
 .date-range {
     width: 250px;
 }
+
+.ribbon-corner {
+    --tor-ribbon-size: 5em;
+    --tor-ribbon-rotate: 45deg;
+    --tor-ribbon-translateX: 50%;
+    --tor-ribbon-translateY: calc((var(--tor-ribbon-size) + 1em) - 100%);
+    --tor-ribbon-origin: 100% 0%;
+    --tor-ribbon-polygon: polygon(0% 100%, 50% calc(100% - (var(--tor-ribbon-size) + 1em)), 100% 100%);
+    background-color: #375ece;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    -webkit-clip-path: var(--tor-ribbon-polygon);
+    clip-path: var(--tor-ribbon-polygon);
+    transform: rotate(var(--tor-ribbon-rotate)) translateY(var(--tor-ribbon-translateY)) translateX(var(--tor-ribbon-translateX)) !important;
+    transform-origin: var(--tor-ribbon-origin) !important;
+    width: calc((var(--tor-ribbon-size) + 1em) * 2);
+    height: 3em;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+}

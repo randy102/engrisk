@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchAttendanceDTO {
-    private String candidateName;
-    private String candidatePhone;
+public class SearchCertificateDTO {
+    private String code;
+    private String exam;
 }

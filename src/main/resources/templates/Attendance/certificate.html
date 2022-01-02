@@ -1,0 +1,113 @@
+<th:block th:insert="Layouts/main :: main(title='Certificate', pageName='certificate', content=~{:: .container-fluid})">
+    <div class="container-fluid form-wrap">
+        <div class="form-wrap ml-auto mr-auto mb-5">
+            <form method="get" th:action="@{/attendance/certificate}" th:object="${search}">
+                <div class="form-group">
+                    <label for="code">Code</label>
+                    <input class="form-control" id="code" type="text" th:field="*{code}" required
+                           autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="exam">Exam</label>
+                    <select class="form-control" th:field="*{exam}" id="exam">
+                        <option th:each="e : ${exams}"
+                                th:value="${e.getName()}"
+                                th:text="${e.getName()}">
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <div class="alert alert-danger" th:if="${dto != null && dto.getCandidate() == null}">Not found</div>
+        <div class="alert alert-danger"
+             th:if="${dto != null && dto.getCandidate() != null && dto.getReading() == null}">Not graded
+        </div>
+
+        <div class="card mb-5" th:if="${dto != null && dto.getCandidate() != null && dto.getReading() != null}">
+            <div class="ribbon-corner">Completed</div>
+            <div class="card-header">
+                <b>
+                    <i class="fas fa-certificate fa-fw"></i>
+                    Engrisk - Certificate Of Completetion
+                </b>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <b>Candidate</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getCandidate().getName()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Exam</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getExam().getName()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Exam Date</b>
+                    </div>
+                    <div class="col-8"
+                         th:text="${#dates.format(dto.getExam().getExamDate(), 'dd/MM/yyyy HH:mm')}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Type</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getExam().getType()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Room</b>
+                    </div>
+                    <div class="col-8" th:if="${dto.getRoom()}" th:text="${dto.getRoom().getName()}"></div>
+                    <div class="col-8" th:unless="${dto.getRoom()}">Updating</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Attendance Code</b>
+                    </div>
+                    <div class="col-8" th:if="${dto.getCode()}" th:text="${dto.getCode()}"></div>
+                    <div class="col-8" th:unless="${dto.getCode()}">Updating</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Listening</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getListening()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Speaking</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getSpeaking()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Reading</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getReading()}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <b>Writing</b>
+                    </div>
+                    <div class="col-8" th:text="${dto.getWriting()}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
