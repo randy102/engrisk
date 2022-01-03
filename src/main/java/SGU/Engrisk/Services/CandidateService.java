@@ -96,9 +96,10 @@ public class CandidateService {
             throw new NotFoundException("Not Existed");
         }
 
+        //Check citizenId
         if (dto.getCitizenId() != null) {
             Long candidateId = getIdByCitizen(dto.getCitizenId());
-            if (candidateId == null || candidateId != candidate.getId()) {
+            if (candidateId != null && candidateId != candidate.getId()) {
                 throw new EntityExistsException(dto.getCitizenId() + " existed");
             }
         }
