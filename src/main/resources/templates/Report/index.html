@@ -1,0 +1,25 @@
+<th:block th:insert="Layouts/main :: main(title='Report', pageName='report', content=~{:: .container-fluid})">
+    <div class="container-fluid form-wrap">
+        <div class="row">
+            <div class="col-6">
+                <canvas id="reportChartRoom" width="400" height="400"></canvas>
+            </div>
+            <div class="col-6">
+                <canvas id="reportChartExam" width="400" height="400"></canvas>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 offset-3">
+                <canvas id="reportChartCandidate" width="400" height="400"></canvas>
+            </div>
+        </div>
+
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var reportDto = /*[[${dto}]]*/ [];
+            /*]]>*/
+        </script>
+    </div>
+</th:block>

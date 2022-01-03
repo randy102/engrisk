@@ -1,6 +1,7 @@
 package SGU.Engrisk.Repositories;
 
 import SGU.Engrisk.Models.Exam;
+import SGU.Engrisk.lib.enums.ExamType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

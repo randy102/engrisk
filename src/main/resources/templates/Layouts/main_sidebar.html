@@ -18,21 +18,27 @@
 <!--            <i class="fas fa-fw fa-tachometer-alt fa-fw"></i>-->
 <!--            <span>Report</span></a>-->
 <!--        <div id="dashboard-collapse" class="collapse show" aria-labelledby="dashboard" data-parent="#accordionSidebar">-->
-<!--            <div class="bg-white py-2 collapse-inner rounded">-->
-<!--                <a class="collapse-item" th:classappend="${page == 'employee/report' ? 'active' : ''}"-->
-<!--                   href="/employee/report">Employee Report</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </li>-->
+    <!--            <div class="bg-white py-2 collapse-inner rounded">-->
+    <!--                <a class="collapse-item" th:classappend="${page == 'employee/report' ? 'active' : ''}"-->
+    <!--                   href="/employee/report">Employee Report</a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </li>-->
 
 
     <!-- Nav Item - Customer -->
-    <li class="nav-item" th:classappend="${page == 'candidate' ? 'active' : ''}">
-        <a class="nav-link" href="/candidate">
-            <i class="fas fa-users fa-fw"></i>
-            <span>Candidates</span></a>
-
+    <li class="nav-item" th:classappend="${page == 'report' ? 'active' : ''}">
+        <a class="nav-link" href="/report">
+            <i class="fas fa-chart-bar fa-fw"></i>
+            <span>Report</span></a>
     </li>
+
+    <!--    <li class="nav-item" th:classappend="${page == 'candidate' ? 'active' : ''}">-->
+    <!--        <a class="nav-link" href="/candidate">-->
+    <!--            <i class="fas fa-users fa-fw"></i>-->
+    <!--            <span>Candidates</span></a>-->
+
+    <!--    </li>-->
 
     <li class="nav-item" th:classappend="${page == 'register' ? 'active' : ''}">
         <a class="nav-link" href="/candidate/register">
