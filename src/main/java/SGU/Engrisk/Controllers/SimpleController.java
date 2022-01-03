@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SimpleController {
     @GetMapping("/")
     public String homePage(Model model) {
-        return "redirect:/swagger-ui.html";
+        return "redirect:/report";
     }
 
 
