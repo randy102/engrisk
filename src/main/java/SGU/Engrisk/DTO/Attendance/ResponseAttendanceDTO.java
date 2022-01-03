@@ -1,6 +1,7 @@
 package SGU.Engrisk.DTO.Attendance;
 
 import SGU.Engrisk.DTO.Candidate.ResponseExamRef;
+import SGU.Engrisk.DTO.Exam.ResponseCandidateRef;
 import SGU.Engrisk.DTO.Exam.ResponseRoomRef;
 import SGU.Engrisk.Models.Attendance;
 import SGU.Engrisk.Models.AttendanceID;
