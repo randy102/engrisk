@@ -96,6 +96,10 @@ public class CandidateService {
             throw new NotFoundException("Not Existed");
         }
 
+        if (dto.getCitizenId() == null || getIdByCitizen(dto.getCitizenId()) != candidate.getId()) {
+            throw new EntityExistsException(dto.getCitizenId() + " existed");
+        }
+
         candidate.setBirthDate(dto.getBirthDate());
         candidate.setCitizenIdDate(dto.getCitizenIdDate());
         candidate.setCitizenId(dto.getCitizenId());
