@@ -2,6 +2,7 @@ package SGU.Engrisk.Services;
 
 
 import SGU.Engrisk.DTO.Room.ResponseRoomDTO;
+import SGU.Engrisk.DTO.Room.UpdateAttendanceResultDTO;
 import SGU.Engrisk.Models.Room;
 import SGU.Engrisk.Repositories.ExamRepository;
 import SGU.Engrisk.Repositories.RoomRepository;
@@ -25,6 +26,9 @@ public class RoomService {
     ExamRepository examRepository;
 
     @Autowired
+    AttendanceService attendanceService;
+
+    @Autowired
     ModelMapper modelMapper;
 
     public List<ResponseRoomDTO> getAll() {
@@ -46,5 +50,24 @@ public class RoomService {
 
     public Room get(String name) {
         return roomRepository.findByName(name).orElse(null);
+    }
+
+    public ResponseRoomDTO updateResults(Long id, List<UpdateAttendanceResultDTO> results) throws Exception {
+        Room room = get(id);
+        if (room == null) {
+            throw new NotFoundException("Room not Existed");
+        }
+        for (UpdateAttendanceResultDTO result : results) {
+            attendanceService.updateResult(
+                    new SGU.Engrisk.DTO.Attendance.UpdateAttendanceResultDTO(
+                            room.getExam().getId(),
+                            result.getCandidateId(),
+                            result.getListening(),
+                            result.getSpeaking(),
+                            result.getReading(),
+                            result.getWriting())
+            );
+        }
+        return getResponse(id);
     }
 }

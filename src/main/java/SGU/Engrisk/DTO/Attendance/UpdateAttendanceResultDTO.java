@@ -1,7 +1,5 @@
 package SGU.Engrisk.DTO.Attendance;
 
-import SGU.Engrisk.Models.AttendanceID;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +12,12 @@ public class UpdateAttendanceResultDTO extends CreateAttendanceDTO {
     private Float speaking;
     private Float reading;
     private Float writing;
+
+    public UpdateAttendanceResultDTO(Long examId, Long candidateId, Float listening, Float speaking, Float reading, Float writing) {
+        super(examId, candidateId);
+        this.listening = listening;
+        this.speaking = speaking;
+        this.reading = reading;
+        this.writing = writing;
+    }
 }
