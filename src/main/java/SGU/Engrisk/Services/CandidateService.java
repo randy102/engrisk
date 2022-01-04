@@ -64,7 +64,7 @@ public class CandidateService {
         dto.setName(FormatString.TitleCase(dto.getName()));
 
         //Check existed
-        if (candidateRepository.existsByCitizenId(dto.getCitizenId()))
+        if (dto.getCitizenId() != null && candidateRepository.existsByCitizenId(dto.getCitizenId()))
             throw new EntityExistsException(dto.getCitizenId() + " existed");
 
 
@@ -119,8 +119,11 @@ public class CandidateService {
     }
 
     public void delete(Long id) throws NotFoundException {
-        if (!candidateRepository.existsById(id))
+        Candidate candidate = get(id);
+        if (candidate == null)
             throw new NotFoundException("Not existed id: " + id);
+        if (!candidate.getAttendances().isEmpty())
+            throw new NotFoundException("Already register exam");
         candidateRepository.deleteById(id);
     }
 
