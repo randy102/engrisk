@@ -86,9 +86,9 @@ public class ExamService {
             throw new IllegalArgumentException("Type cannot be null");
 
         //Check existed
-        dto.setName(FormatString.TitleCase(dto.getName()));
-        if (examRepository.existsByName(dto.getName()))
-            throw new EntityExistsException(dto.getName() + " existed");
+//        dto.setName(FormatString.TitleCase(dto.getName()));
+//        if (examRepository.existsByName(dto.getName()))
+//            throw new EntityExistsException(dto.getName() + " existed");
 
         Exam exam = modelMapper.map(dto, Exam.class);
         exam = examRepository.save(exam);
@@ -119,9 +119,9 @@ public class ExamService {
         if (exam == null) {
             throw new NotFoundException("Not Existed");
         }
-        if (examRepository.existsByName(dto.getName()) && get(dto.getName()).getId() != exam.getId()) {
-            throw new EntityExistsException(dto.getName() + " Existed");
-        }
+//        if (examRepository.existsByName(dto.getName()) && get(dto.getName()).getId() != exam.getId()) {
+//            throw new EntityExistsException(dto.getName() + " Existed");
+//        }
 
         exam.setExamDate(dto.getExamDate());
         exam.setType(dto.getType());
