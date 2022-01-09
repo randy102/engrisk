@@ -4,13 +4,18 @@
 
         <form method="post" th:action="@{/candidate/register-candidate}" th:object="${dto}">
             <div class="form-group">
-                <label for="citizenId">Citizen Id</label>
+                <label for="citizenId">Citizen ID</label>
                 <input class="form-control" id="citizenId" type="text" th:field="*{citizenId}" readonly>
             </div>
 
             <div class="form-group">
                 <label for="citizenIdDate">Citizen issued date</label>
                 <input class="form-control" id="citizenIdDate" type="date" th:field="*{citizenIdDate}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="citizenIdPlace">Citizen issued place</label>
+                <input class="form-control" id="citizenIdPlace" type="text" th:field="*{citizenIdPlace}">
             </div>
 
             <div class="form-group">
